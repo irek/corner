@@ -135,7 +135,6 @@ $.fn.corner = function(o) {
 
 	    strip.style.borderLeftColor  = bot ? (cclb || ccl || ccb || cc) : (cclt || ccl || cct || cc);
 	    strip.style.borderRightColor = bot ? (ccrb || ccr || ccb || cc) : (ccrt || ccr || cct || cc);
-	    alert((bot?'bottmm:':'top:')+'left:'+strip.style.borderLeftColor+',right:'+strip.style.borderRightColor);
 
             if ((bot && (opts.BL || opts.BR)) || (!bot && (opts.TL || opts.TR))) {
                 strip.style.borderStyle = 'none '+(opts[j+'R']?'solid':'none')+' none '+(opts[j+'L']?'solid':'none');
