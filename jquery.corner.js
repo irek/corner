@@ -95,6 +95,13 @@ $.fn.corner = function(o) {
     var cc = ((o.match(/cc:(#[0-9a-f]+)/)||[])[1]);  // corner color
     var ccl = ((o.match(/ccl:(#[0-9a-f]+)/)||[])[1]);  // corner color Left
     var ccr = ((o.match(/ccr:(#[0-9a-f]+)/)||[])[1]);  // corner color Right
+    var cct = ((o.match(/cct:(#[0-9a-f]+)/)||[])[1]);  // corner color Top
+    var ccb = ((o.match(/ccb:(#[0-9a-f]+)/)||[])[1]);  // corner color Bottom
+    var cclt = ((o.match(/cclt:(#[0-9a-f]+)/)||[])[1]);  // corner color Top Left
+    var ccrt = ((o.match(/ccrt:(#[0-9a-f]+)/)||[])[1]);  // corner color Top Right
+    var cclb = ((o.match(/cclb:(#[0-9a-f]+)/)||[])[1]);  // corner color Bottom Left
+    var ccrb = ((o.match(/ccrb:(#[0-9a-f]+)/)||[])[1]);  // corner color Bottom Right
+
     var sc = ((o.match(/sc:(#[0-9a-f]+)/)||[])[1]);  // strip color
     var width = parseInt((o.match(/(\d+)px/)||[])[1]) || 10; // corner width
     var re = /round|bevel|notch|bite|cool|sharp|slide|jut|curl|tear|fray|wicked|sculpt|long|dog3|dog2|dog/;
@@ -119,14 +126,17 @@ $.fn.corner = function(o) {
 
         if (typeof this.style.zoom != undefined) this.style.zoom = 1; // force 'hasLayout' in IE
         if (!keep) this.style.border = 'none';
-        strip.style.borderColor = cc || gpc(this.parentNode);
-	strip.style.borderLeftColor = ccl || strip.style.borderColor;
-	strip.style.borderRightColor = ccr || strip.style.borderColor;
+        cc = cc || gpc(this.parentNode);
         var cssHeight = $.curCSS(this, 'height');
 
         for (var j in edges) {
             var bot = edges[j];
             // only add stips if needed
+
+	    strip.style.borderLeftColor  = bot ? (cclb || ccl || ccb || cc) : (cclt || ccl || cct || cc);
+	    strip.style.borderRightColor = bot ? (ccrb || ccr || ccb || cc) : (ccrt || ccr || cct || cc);
+	    alert((bot?'bottmm:':'top:')+'left:'+strip.style.borderLeftColor+',right:'+strip.style.borderRightColor);
+
             if ((bot && (opts.BL || opts.BR)) || (!bot && (opts.TL || opts.TR))) {
                 strip.style.borderStyle = 'none '+(opts[j+'R']?'solid':'none')+' none '+(opts[j+'L']?'solid':'none');
                 var d = document.createElement('div');
