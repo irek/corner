@@ -93,6 +93,8 @@ $.fn.corner = function(o) {
     o = (o||"").toLowerCase();
     var keep = /keep/.test(o);                       // keep borders?
     var cc = ((o.match(/cc:(#[0-9a-f]+)/)||[])[1]);  // corner color
+    var ccl = ((o.match(/ccl:(#[0-9a-f]+)/)||[])[1]);  // corner color Left
+    var ccr = ((o.match(/ccr:(#[0-9a-f]+)/)||[])[1]);  // corner color Right
     var sc = ((o.match(/sc:(#[0-9a-f]+)/)||[])[1]);  // strip color
     var width = parseInt((o.match(/(\d+)px/)||[])[1]) || 10; // corner width
     var re = /round|bevel|notch|bite|cool|sharp|slide|jut|curl|tear|fray|wicked|sculpt|long|dog3|dog2|dog/;
@@ -118,6 +120,8 @@ $.fn.corner = function(o) {
         if (typeof this.style.zoom != undefined) this.style.zoom = 1; // force 'hasLayout' in IE
         if (!keep) this.style.border = 'none';
         strip.style.borderColor = cc || gpc(this.parentNode);
+	strip.style.borderLeftColor = ccl || strip.style.borderColor;
+	strip.style.borderRightColor = ccr || strip.style.borderColor;
         var cssHeight = $.curCSS(this, 'height');
 
         for (var j in edges) {
